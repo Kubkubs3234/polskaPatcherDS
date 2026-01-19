@@ -1,0 +1,76 @@
+#!/bin/bash
+set -e
+clear
+echo "Witaj w patcherze j. Polskiego dla nintendo DS."
+echo "Jezeli tego nie zrobiles, najpierw zainstaluj FlashMe!"
+echo "Posluzy za warstwe ochronna przeciwko bricku."
+echo "Zacznijmy od zdumpowania firmware twojego DS."
+echo "Przenies DSBF_Dump.nds na twoj R4"
+echo "i uruchom go."
+read -n 1 -s -r -p "Nacisnij cokolwiek jak skonczysz..."
+echo
+clear
+echo "przenies plik firmware.bin z roota twojej SD"
+echo "do TEGO FOLDERU."
+echo "dla bezpieczenstwa, skopiuj go tez gdzies indziej"
+echo "np. na jakis pendrive."
+echo "(prosze nie skipuj tego)"
+read -n 1 -s -r -p "Nacisnij cokolwiek jak skonczysz..."
+clear
+### ===== KATALOG SKRYPTU =====
+BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+GUI_DIR="$BASE_DIR/guiTool"
+GUI_BIN="$GUI_DIR/guiTool"
+
+FIRMWARE="$BASE_DIR/firmware.bin"
+PATCH="$BASE_DIR/polska.bin"
+
+### poprawnosc
+if [ ! -x "$GUI_BIN" ]; then
+    echo "Blad: nie znaleziono binarki guiTool lub brak uprawnień"
+    exit 1
+fi
+
+if [ ! -f "$FIRMWARE" ]; then
+    echo "Blad: brak firmware.bin w katalogu programu"
+    exit 1
+fi
+
+if [ ! -f "$PATCH" ]; then
+    echo "Blad: brak polska.bin w katalogu programu"
+    exit 1
+fi
+
+### patch
+echo "Patchowanie firmware..."
+"$GUI_BIN" "$FIRMWARE" -i "$PATCH"
+### bla bla bla ble ble ble blu blu blu
+echo
+echo "Firmware został spatchowany."
+echo "Teraz twoj plik firmware.bin zawiera moj patch."
+echo "Na roocie SD umiesc nowy folder o nazwie firmwares"
+echo "i tam wloz swoj firmware.bin"
+echo "Na roocie SD umiesc tez FWmanager.nds"
+read -n 1 -s -r -p "Naciśnij dowolny klawisz, aby kontynuować..."
+echo
+echo "Teraz tak; odkrec klapke od baterii DS."
+echo "Przyklej baterie tasma klejaca do obudowy"
+echo "bo gdyby wypadla, ryzykujesz brickiem!"
+read -n 1 -s -r -p "Nacisnij cokolwiek jak skonczysz..."
+echo
+echo "Pod klapka jest tzw. zworka SL1 przypominajaca kolko podzielone na pol."
+echo "przygotuj cienka, metalowa pensete"
+echo "i uruchom FWmanager na DS."
+echo "Kiedy FWmanager poprosi, OSTROZNIE"
+echo "zewrzyj SL1 penseta, ale uwazaj bo obok jest jeszcze"
+echo "jeden metalowy punkt, zwarcie go wylacza DS. "
+echo "zwarcie go przy instalacji grozi brickiem!"
+echo "Proces trwa mniej niz 2 minuty, jak w trakcie instalacji"
+echo "rozewrzesz SL1 to instalator poczeka az go z powrotem zewrzesz."
+echo "NIE zwieraj sama folia aluminiowa, zaizoluj tasma klejaca jak juz serio musisz."
+echo "(sam to przed chwila zrobilem jak mi sie rece trzesa xd)"
+echo "jak sie skonczy to ekran pokaze napis done, wtedy wylacz konsole."
+echo "konsola bedzie po polsku :)"
+exit
+
