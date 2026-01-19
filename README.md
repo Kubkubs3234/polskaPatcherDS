@@ -1,4 +1,5 @@
 # polskaPatcherDS
+
 Patcher jęz. polskiego dla NDS
 WYMAGANIA:
 PC z ubuntu / Bootable USB / ewentualnie WSL
